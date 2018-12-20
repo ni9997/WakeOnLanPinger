@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeListener;
 import java.io.*;
 import java.net.*;
+import java.util.Date;
 
 import javax.swing.Action;
 import javax.swing.JButton;
@@ -113,6 +114,7 @@ public class WakeOnLan extends JFrame implements Runnable {
 		// TODO Auto-generated method stub
 		while(!thread.isInterrupted())
 		{
+			System.out.println("Wake at: " + new Date(System.currentTimeMillis()).toGMTString());
 			runWakeOnLan();
 			try {
 				thread.sleep(180000);
