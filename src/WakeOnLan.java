@@ -6,10 +6,12 @@ import java.beans.PropertyChangeListener;
 import java.io.*;
 import java.net.*;
 import java.util.Date;
+import java.util.Scanner;
 
 import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 public class WakeOnLan extends JFrame implements Runnable {
     
@@ -26,12 +28,49 @@ public class WakeOnLan extends JFrame implements Runnable {
     {
     	super("Server");
     	this.setSize(400, 200);
-    	
+    	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     	thread = new Thread(this);
+    	this.setLayout(null);
+ 
+    
+
+		BufferedWriter bw = null;
+		FileWriter fw = null;
+
+		try {
+
+			String content = "0.5";
+
+			fw = new FileWriter("revision.txt");
+			bw = new BufferedWriter(fw);
+			bw.write(content);
+
+			System.out.println("Done");
+
+		} catch (IOException e) {
+
+			e.printStackTrace();
+
+		}finally {
+
+			try {
+
+				if (bw != null)
+					bw.close();
+
+				if (fw != null)
+					fw.close();
+
+			} catch (IOException ex) {
+
+				ex.printStackTrace();
+
+			}}
     	
-    	this.setLayout(new FlowLayout());
     	
     	start = new JButton("Start");
+    	start.setBounds(0, 0, 80, 30);
+    	
     	start.addActionListener(new ActionListener() {
 			
 			@Override
@@ -43,6 +82,8 @@ public class WakeOnLan extends JFrame implements Runnable {
     	this.add(start);
     	
     	stop = new JButton("Stop");
+    	stop.setBounds(100, 0, 80, 30);
+    	
     	stop.addActionListener(new ActionListener() {
 			
 			@Override
@@ -55,12 +96,14 @@ public class WakeOnLan extends JFrame implements Runnable {
     	
     	this.setVisible(true);
     	
+    	
     }
 
     
     public static void main(String[] args) {
         
-        new WakeOnLan();    
+        WakeOnLan w = new WakeOnLan();    
+        
         
         
     }
